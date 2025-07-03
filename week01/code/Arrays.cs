@@ -13,7 +13,17 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // 1) create a List<double>
+        // 2) make a For loop with the limit of the length
+        // 3) inside For loop add in the list the amount of numbers multiply by number
+        // 4) return the list converting it to Array
+
+        List<double> multiplesList = new List<double>();
+        for (int i = 1; i < length + 1; i++) multiplesList.Add(i * number);
+
+        Console.Write(multiplesList);
+
+        return multiplesList.ToArray();
     }
 
     /// <summary>
@@ -29,5 +39,17 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // 1) Calculate the starting index for the last 'amount' elements in the list.
+        // 2) Create a new list containing these last 'amount' elements.
+        // 3) Remove these elements from the end of the original list.
+        // 4) Insert the removed elements at the beginning of the original list.
+
+        int index = data.Count - amount;
+        List<int> reverseList = new List<int>(data.GetRange(index, amount));
+
+        data.RemoveRange(index, amount);
+
+        data.InsertRange(0, reverseList);
     }
 }
