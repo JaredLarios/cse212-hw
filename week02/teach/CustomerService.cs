@@ -3,7 +3,8 @@
 /// added and allows customers to be serviced.
 /// </summary>
 public class CustomerService {
-    public static void Run() {
+    public static void Run()
+    {
         // Example code to see what's in the customer service queue:
         // var cs = new CustomerService(10);
         // Console.WriteLine(cs);
@@ -11,24 +12,62 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Can I add a customer and then serve him?
+        // Expected Result: This will display a customer that was added
         Console.WriteLine("Test 1");
+        var service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.ServeCustomer();
 
-        // Defect(s) Found: 
+        // Defect(s) Found: The ServeCustomer should get the customer the customer before deleting from the list.
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Can I add two customers and then serve them in order?
+        // Expected Result: This will display the customers in the same order that they were entered
         Console.WriteLine("Test 2");
+        service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
 
-        // Defect(s) Found: 
+        Console.WriteLine($"Before serving: {service}");
+
+        service.ServeCustomer();
+        service.ServeCustomer();
+
+        Console.WriteLine($"After serving: {service}");
+
+        // Defect Found: Nothing
 
         Console.WriteLine("=================");
 
         // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Can I serve if there is no customers?
+        // Expected Result: This will raise an error
+        Console.WriteLine("Test 3");
+        service = new CustomerService(4);
+        service.ServeCustomer();
+
+        // Defect Found: Raises and error that says that I need to check the length in serve_customer
+
+        // Test 4
+        // Scenario: Does the max length of queue is strict? 
+        // Expected Result: It will display some error message when the 2nd item is added.
+        Console.WriteLine("Test 4");
+        service = new CustomerService(1);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {service}");
+
+        // Test 5
+        // Scenario: There is there a default value if the value is 0?
+        // Expected Result: It will display 10
+        Console.WriteLine("Test 5");
+        service = new CustomerService(0);
+        Console.WriteLine($"Size should be 10: {service}");
+        // Defect Found: Nothing
     }
 
     private readonly List<Customer> _queue = new();
@@ -88,9 +127,16 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("There is not customers in queue");
+        }
+        else
+        {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
