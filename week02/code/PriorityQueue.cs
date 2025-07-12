@@ -2,6 +2,8 @@
 {
     private List<PriorityItem> _queue = new();
 
+    public int Count { get; internal set; }
+
     /// <summary>
     /// Add a new value to the queue with an associated priority.  The
     /// node is always added to the back of the queue regardless of 
@@ -13,6 +15,7 @@
     {
         var newNode = new PriorityItem(value, priority);
         _queue.Add(newNode);
+        Count++;
     }
 
     public string Dequeue()
@@ -24,14 +27,16 @@
 
         // Find the index of the item with the highest priority to remove
         var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++)
+        for (int index = 0; index < _queue.Count; index++)
         {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
+            if (_queue[index].Priority > _queue[highPriorityIndex].Priority)
                 highPriorityIndex = index;
         }
 
         // Remove and return the item with the highest priority
         var value = _queue[highPriorityIndex].Value;
+        _queue.RemoveAt(highPriorityIndex);
+        Count--;
         return value;
     }
 
