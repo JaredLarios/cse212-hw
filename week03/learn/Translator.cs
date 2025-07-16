@@ -2,13 +2,17 @@ public class Translator
 {
     public static void Run()
     {
-        var englishToGerman = new Translator();
-        englishToGerman.AddWord("House", "Haus");
-        englishToGerman.AddWord("Car", "Auto");
-        englishToGerman.AddWord("Plane", "Flugzeug");
-        Console.WriteLine(englishToGerman.Translate("Car")); // Auto
-        Console.WriteLine(englishToGerman.Translate("Plane")); // Flugzeug
-        Console.WriteLine(englishToGerman.Translate("Train")); // ???
+        var englishToSpanish = new Translator();
+        englishToSpanish.AddWord("House", "Casa");
+        englishToSpanish.AddWord("Car", "Carro");
+        englishToSpanish.AddWord("Plane", "Avion");
+        englishToSpanish.AddWord("Fish", "Pez");
+        englishToSpanish.AddWord("Sea", "Mar");
+        Console.WriteLine(englishToSpanish.Translate("Car")); // carro
+        Console.WriteLine(englishToSpanish.Translate("Plane")); // avion
+        Console.WriteLine(englishToSpanish.Translate("Train")); // ??
+        Console.WriteLine(englishToSpanish.Translate("Fish")); // pez
+        Console.WriteLine(englishToSpanish.Translate("Sea")); // mar
     }
 
     private Dictionary<string, string> _words = new();
@@ -25,6 +29,7 @@ public class Translator
     public void AddWord(string fromWord, string toWord)
     {
         // ADD YOUR CODE HERE
+        _words[fromWord] = toWord;
     }
 
     /// <summary>
@@ -35,6 +40,9 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+        string newWord = "????";
+        if (_words.ContainsKey(fromWord)) newWord = _words[fromWord];
+
+        return newWord;
     }
 }
