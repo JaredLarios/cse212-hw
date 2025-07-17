@@ -33,6 +33,9 @@ public class Maze
     public void MoveLeft()
     {
         // FILL IN CODE
+        ValueTuple<int, int> coordinate = new ValueTuple<int, int>(_currX, _currY);
+        if (!_mazeMap[coordinate][0]) throw new InvalidOperationException("Can't go that way!");
+        _currX--;
     }
 
     /// <summary>
@@ -42,6 +45,9 @@ public class Maze
     public void MoveRight()
     {
         // FILL IN CODE
+        ValueTuple<int, int> coordinate = new ValueTuple<int, int>(_currX, _currY);
+        if (!_mazeMap[coordinate][1]) throw new InvalidOperationException("Can't go that way!");
+        _currX++;
     }
 
     /// <summary>
@@ -51,6 +57,9 @@ public class Maze
     public void MoveUp()
     {
         // FILL IN CODE
+        ValueTuple<int, int> coordinate = new ValueTuple<int, int>(_currX, _currY);
+        if (!_mazeMap[coordinate][2]) throw new InvalidOperationException("Can't go that way!");
+        _currY--;
     }
 
     /// <summary>
@@ -60,6 +69,9 @@ public class Maze
     public void MoveDown()
     {
         // FILL IN CODE
+        ValueTuple<int, int> coordinate = new ValueTuple<int, int>(_currX, _currY);
+        if (!_mazeMap[coordinate][3]) throw new InvalidOperationException("Can't go that way!");
+        _currY++;
     }
 
     public string GetStatus()
