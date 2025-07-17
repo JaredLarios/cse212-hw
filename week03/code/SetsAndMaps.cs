@@ -22,7 +22,22 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> pairs = new();
+        HashSet<string> seen = new HashSet<string>();
+
+        foreach (string word in words)
+        {
+            string reverseString;
+            char[] charArray = word.ToCharArray();
+            Array.Reverse(charArray);
+            if (word[0] != word[1]) reverseString = new string(charArray);
+            else reverseString = word;
+
+            if (seen.Contains(reverseString)) pairs.Add($"{word} & {reverseString}");
+            else seen.Add(word);
+        }
+
+        return pairs.ToArray();
     }
 
     /// <summary>
@@ -43,6 +58,8 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            if (degrees.ContainsKey(fields[3])) degrees[fields[3]] += 1;
+            else degrees[fields[3]] = 1;
         }
 
         return degrees;
@@ -67,7 +84,37 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var plainWord1 = word1.ToLower().Replace(" ", "");
+        var plainWord2 = word2.ToLower().Replace(" ", "");
+
+        if (plainWord1.Length != plainWord2.Length) return false;
+
+        Dictionary<char, int> rep1 = new Dictionary<char, int>();
+        Dictionary<char, int> rep2 = new Dictionary<char, int>();
+
+        foreach (char letter in plainWord1)
+        {
+            if (!rep1.ContainsKey(letter)) rep1[letter] = 0;
+            rep1[letter]++;
+        }
+
+        foreach (char letter in plainWord2)
+        {
+            if (!rep2.ContainsKey(letter)) rep2[letter] = 0;
+            rep2[letter]++;
+        }
+
+        HashSet<char> setWord1 = rep1.Keys.ToHashSet();
+        HashSet<char> setWord2 = rep2.Keys.ToHashSet();
+
+        if (!setWord1.SetEquals(setWord2)) return false;
+
+        foreach (char letter in setWord1)
+        {
+            if (rep1[letter] != rep2[letter]) return false;
+        }
+
+        return true;
     }
 
     /// <summary>
