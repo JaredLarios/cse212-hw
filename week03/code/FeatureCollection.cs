@@ -88,5 +88,5 @@ public class Geometry
     public string Type { get; set; }
 
     [JsonPropertyName("coordinates")]
-    public double[] Coordinates { get; set; }  // [longitude, latitude, depth]
+    public double[] Coordinates { get; set; }
 }
