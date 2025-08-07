@@ -41,10 +41,10 @@ public class Node
             return true;
 
         if (Right is not null)
-            isLeft = Right.Contains(value);
+            isRight = Right.Contains(value);
 
         if (Left is not null)
-            isRight = Left.Contains(value);
+            isLeft = Left.Contains(value);
 
         return isLeft || isRight;
     }
